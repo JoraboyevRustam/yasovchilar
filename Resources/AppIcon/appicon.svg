@@ -1,0 +1,9 @@
+<svg width="456" height="456" viewBox="0 0 456 456" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="456" height="456" rx="72" fill="#512BD4"/>
+<path d="M228 100C228 100 228 100 228 100C228 100 228 100 228 100Z" fill="white"/>
+<path d="M228 356C228 356 228 356 228 356C228 356 228 356 228 356Z" fill="white"/>
+<path d="M100 228C100 228 100 228 100 228C100 228 100 228 100 228Z" fill="white"/>
+<path d="M356 228C356 228 356 228 356 228C356 228 356 228 356 228Z" fill="white"/>
+<circle cx="228" cy="228" r="100" fill="white"/>
+<text x="228" y="248" text-anchor="middle" font-family="Arial, sans-serif" font-size="60" font-weight="bold" fill="#512BD4">🎮</text>
+</svg>

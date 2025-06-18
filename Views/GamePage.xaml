@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="SozTopar.Views.GamePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SozTopar.ViewModels"
+             x:DataType="vm:GamePageViewModel"
+             Title="O'yin"
+             BackgroundColor="#1a1a2e">
+
+    <Grid RowDefinitions="Auto,*,Auto" Padding="15">
+        
+        <!-- Game Header -->
+        <Frame Grid.Row="0" 
+               BackgroundColor="#16213e" 
+               BorderColor="#0f3460" 
+               CornerRadius="15"
+               Padding="15"
+               Margin="0,0,0,10">
+            <StackLayout Spacing="10">
+                
+                <!-- Encoded Word Display -->
+                <Label Text="Kodlangan So'z:" 
+                       FontSize="14" 
+                       TextColor="#ccc" 
+                       HorizontalOptions="Center" />
+                
+                <Label Text="{Binding EncodedWord}" 
+                       FontSize="32" 
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="#4fc3f7"
+                       LineBreakMode="WordWrap" />
+
+                <!-- Game Info -->
+                <Grid ColumnDefinitions="*,*,*" Margin="0,10,0,0">
+                    <StackLayout Grid.Column="0" HorizontalOptions="Center">
+                        <Label Text="{Binding WordCategory}" 
+                               FontSize="12" 
+                               TextColor="#ffa726" 
+                               HorizontalOptions="Center" />
+                        <Label Text="Kategoriya" 
+                               FontSize="10" 
+                               TextColor="#999" 
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="1" HorizontalOptions="Center">
+                        <Label Text="{Binding AttemptCount}" 
+                               FontSize="16" 
+                               FontAttributes="Bold"
+                               TextColor="#66bb6a" 
+                               HorizontalOptions="Center" />
+                        <Label Text="Urinishlar" 
+                               FontSize="10" 
+                               TextColor="#999" 
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+
+                    <StackLayout Grid.Column="2" HorizontalOptions="Center">
+                        <Label Text="{Binding WordDifficulty}" 
+                               FontSize="12" 
+                               TextColor="#ef5350" 
+                               HorizontalOptions="Center" />
+                        <Label Text="Qiyinlik" 
+                               FontSize="10" 
+                               TextColor="#999" 
+                               HorizontalOptions="Center" />
+                    </StackLayout>
+                </Grid>
+
+                <!-- Game Status -->
+                <Label Text="{Binding GameStatus}" 
+                       FontSize="14" 
+                       TextColor="#eee" 
+                       HorizontalOptions="Center"
+                       Margin="0,5,0,0" />
+            </StackLayout>
+        </Frame>
+
+        <!-- Main Game Area -->
+        <ScrollView Grid.Row="1">
+            <StackLayout Spacing="15">
+                
+                <!-- Input Section -->
+                <Frame BackgroundColor="#16213e" 
+                       BorderColor="#0f3460" 
+                       CornerRadius="15"
+                       Padding="15">
+                    <StackLayout Spacing="10">
+                        <Label Text="Tahmin:" 
+                               FontSize="16" 
+                               FontAttributes="Bold"
+                               TextColor="#eee" />
+                        
+                        <Entry Text="{Binding CurrentGuess}" 
+                               Placeholder="So'zni kiriting..."
+                               PlaceholderColor="#666"
+                               TextColor="#eee"
+                               BackgroundColor="#0f3460"
+                               FontSize="18"
+                               ReturnCommand="{Binding SubmitGuessCommand}" />
+                        
+                        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                            <Button Grid.Column="0"
+                                    Text="✅ Tekshirish" 
+                                    Command="{Binding SubmitGuessCommand}"
+                                    BackgroundColor="#4fc3f7"
+                                    TextColor="White"
+                                    FontSize="16"
+                                    CornerRadius="20"
+                                    HeightRequest="45" />
+                            
+                            <Button Grid.Column="1"
+                                    Text="💡" 
+                                    Command="{Binding ShowHintCommand}"
+                                    BackgroundColor="#ffa726"
+                                    TextColor="White"
+                                    FontSize="16"
+                                    CornerRadius="20"
+                                    WidthRequest="50"
+                                    HeightRequest="45" />
+                        </Grid>
+                    </StackLayout>
+                </Frame>
+
+                <!-- Guess History -->
+                <Frame BackgroundColor="#16213e" 
+                       BorderColor="#0f3460" 
+                       CornerRadius="15"
+                       Padding="15">
+                    <StackLayout>
+                        <Label Text="📝 Urinishlar tarixi:" 
+                               FontSize="16" 
+                               FontAttributes="Bold"
+                               TextColor="#eee"
+                               Margin="0,0,0,10" />
+                        
+                        <CollectionView ItemsSource="{Binding GuessHistory}"
+                                        BackgroundColor="Transparent">
+                            <CollectionView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Padding="10,5" 
+                                          ColumnDefinitions="Auto,*,Auto,Auto">
+                                        
+                                        <Label Grid.Column="0"
+                                               Text="{Binding Guess}" 
+                                               FontSize="14" 
+                                               FontAttributes="Bold"
+                                               TextColor="#eee"
+                                               VerticalOptions="Center" />
+                                        
+                                        <Label Grid.Column="1"
+                                               Text="{Binding Feedback}" 
+                                               FontSize="12" 
+                                               TextColor="#ccc"
+                                               VerticalOptions="Center"
+                                               Margin="10,0,0,0" />
+                                        
+                                        <Label Grid.Column="2"
+                                               Text="{Binding CorrectLetters, StringFormat='H:{0}'}" 
+                                               FontSize="10" 
+                                               TextColor="#66bb6a"
+                                               VerticalOptions="Center" />
+                                        
+                                        <Label Grid.Column="3"
+                                               Text="{Binding CorrectPositions, StringFormat='P:{0}'}" 
+                                               FontSize="10" 
+                                               TextColor="#4fc3f7"
+                                               VerticalOptions="Center"
+                                               Margin="5,0,0,0" />
+                                    </Grid>
+                                </DataTemplate>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
+
+        <!-- Bottom Actions -->
+        <StackLayout Grid.Row="2" 
+                     Orientation="Horizontal" 
+                     Spacing="10"
+                     Margin="0,10,0,0">
+            
+            <Button Text="🏠 Bosh sahifa" 
+                    Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.BackCommand}"
+                    BackgroundColor="#666"
+                    TextColor="White"
+                    FontSize="14"
+                    CornerRadius="20"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40"
+                    Clicked="OnBackClicked" />
+            
+            <Button Text="🔄 Yangi o'yin" 
+                    Command="{Binding NewGameCommand}"
+                    BackgroundColor="#66bb6a"
+                    TextColor="White"
+                    FontSize="14"
+                    CornerRadius="20"
+                    HorizontalOptions="FillAndExpand"
+                    HeightRequest="40" />
+        </StackLayout>
+    </Grid>
+</ContentPage>
